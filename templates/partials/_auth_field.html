@@ -1,0 +1,7 @@
+<div class="field">
+  <div class="field-box">
+    {{ field }}
+    <svg class="ic" aria-hidden="true"><use href="{% if field.name == 'email' %}#i-mail{% elif 'password' in field.name %}#i-lock{% else %}#i-user{% endif %}"/></svg>
+  </div>
+  {% if field.errors %}<ul class="errorlist" role="alert">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+</div>

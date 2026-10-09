@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} · CoderPulse{% endblock %}
+{% block shell_class %} has-rail{% endblock %}
+{% block rail %}{% include "partials/_rail.html" %}{% endblock %}
+{% block content %}
+  <h1 class="page-title">{{ title }}</h1>
+  {% if kind %}
+  <div class="seg">
+    <a href="{% url 'following_feed' %}" class="{% if kind == 'following' %}active{% endif %}">Following</a>
+    <a href="{% url 'followers_feed' %}" class="{% if kind == 'followers' %}active{% endif %}">Followers</a>
+  </div>
+  {% endif %}
+  {% for post in posts %}
+    {% include "partials/_post_card.html" %}
+  {% empty %}
+    <div class="card empty">
+      {% if kind == 'following' %}
+        <h2>Nothing here yet</h2><p>Follow people to see their posts here.</p><a class="btn" href="{% url 'search' %}">Find people</a>
+      {% elif kind == 'followers' %}
+        <h2>Nothing here yet</h2><p>Posts from the people who follow you will show up here.</p>
+      {% else %}
+        <h2>No posts yet</h2><p>Be the first to share something.</p><a class="btn" href="{% url 'new_post' %}">Create a post</a>
+      {% endif %}
+    </div>
+  {% endfor %}
+{% endblock %}

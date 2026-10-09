@@ -1,0 +1,21 @@
+<article class="card" id="post-{{ post.pk }}">
+  <div class="post-head">
+    <a href="{% url 'profile' post.author.username %}">{% include "partials/_avatar.html" with u=post.author size="" %}</a>
+    <div class="who">
+      <a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a>
+      <time datetime="{{ post.created_at|date:'c' }}">{{ post.created_at|timesince }} ago</time>
+    </div>
+    <span class="badge cat-{{ post.category }}">{{ post.get_category_display }}</span>
+  </div>
+  <h2 class="post-title"><a href="{% url 'post_detail' post.pk %}">{{ post.title }}</a></h2>
+  <p class="post-body">{% if full %}{{ post.body|linebreaksbr }}{% else %}{{ post.body|truncatechars:180 }}{% endif %}</p>
+  {% if post.image %}
+    <a class="post-media" href="{% url 'post_detail' post.pk %}"><img src="{{ post.image.url }}" alt="Image for {{ post.title }}" loading="lazy"></a>
+  {% endif %}
+  <div class="post-actions">
+    <button type="button" class="act like {% if post.liked %}on{% endif %}" data-like data-url="{% url 'like_toggle' post.pk %}" aria-pressed="{% if post.liked %}true{% else %}false{% endif %}" aria-label="Like">
+      <svg class="ic"><use href="#i-heart"/></svg><span class="count">{{ post.like_count }}</span>
+    </button>
+    <a class="act" href="{% url 'post_detail' post.pk %}#comments" aria-label="Comments"><svg class="ic"><use href="#i-comment"/></svg><span>{{ post.comment_count }}</span></a>
+  </div>
+</article>

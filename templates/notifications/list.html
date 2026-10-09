@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Notifications · CoderPulse{% endblock %}
+{% block content %}
+  <h1 class="page-title">Notifications</h1>
+  {% if items %}
+  <ul class="notifs">
+    {% for n in items %}
+    <li style="--i: {{ forloop.counter0 }}">
+      <a class="notif glass{% if not n.is_read %} unread{% endif %}" href="{% if n.post %}{{ n.post.get_absolute_url }}{% if n.kind == 'comment' %}#comments{% endif %}{% else %}{% url 'profile' n.actor.username %}{% endif %}">
+        {% include "partials/_avatar.html" with u=n.actor size="" %}
+        <p><b>{{ n.actor.username }}</b> {{ n.get_kind_display }}{% if n.post %} <em>{{ n.post.title|truncatechars:40 }}</em>{% endif %}<time>{{ n.created_at|timesince }} ago</time></p>
+        <span class="notif-kind {{ n.kind }}"><svg class="ic"><use href="{% if n.kind == 'like' %}#i-heart{% elif n.kind == 'comment' %}#i-comment{% else %}#i-user{% endif %}"/></svg></span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <div class="card empty"><h2>No notifications yet</h2><p>Likes, comments and new followers will show up here.</p></div>
+  {% endif %}
+{% endblock %}

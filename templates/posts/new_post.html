@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}New post · CoderPulse{% endblock %}
+{% block content %}
+  <h1 class="page-title">New post</h1>
+  <form class="card" method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}{% if field.name == 'image' %} (optional){% endif %}</label>
+      {{ field }}
+      {% if field.errors %}<ul class="errorlist" role="alert">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+    {% endfor %}
+    <button class="btn btn-block btn-submit" type="submit">Share</button>
+  </form>
+{% endblock %}

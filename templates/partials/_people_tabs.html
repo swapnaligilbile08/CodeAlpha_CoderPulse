@@ -1,0 +1,5 @@
+<div class="seg seg-counts">
+  <a href="{% url 'profile' owner.username %}" class="{% if active == 'posts' %}active{% endif %}"><b>{{ owner.posts.count }}</b> Posts</a>
+  <a href="{% url 'followers' owner.username %}" class="{% if active == 'followers' %}active{% endif %}"><b{% if active == 'posts' %} data-followers-count{% endif %}>{{ owner.followers_count }}</b> Followers</a>
+  <a href="{% url 'following' owner.username %}" class="{% if active == 'following' %}active{% endif %}"><b>{{ owner.following_count }}</b> Following</a>
+</div>

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}{{ kind|capfirst }} · {{ owner.username }}{% endblock %}
+{% block shell_class %} wide{% endblock %}
+{% block content %}
+  <a class="back" href="{% url 'profile' owner.username %}"><svg class="ic"><use href="#i-back"/></svg> {{ owner.username }}</a>
+  <h1 class="page-title">{{ owner.username }}</h1>
+  {% include "partials/_people_tabs.html" with active=kind %}
+  {% for u in users %}
+  <div class="user-row glass">
+    <a href="{% url 'profile' u.username %}">{% include "partials/_avatar.html" with u=u size="" %}</a>
+    <div class="who"><a href="{% url 'profile' u.username %}">{{ u.username }}</a>{% if u.display_name %}<span>{{ u.display_name }}</span>{% endif %}</div>
+    {% if u != request.user %}{% include "partials/_follow_btn.html" with following=u.i_follow %}{% endif %}
+  </div>
+  {% empty %}
+  <div class="card empty"><h2>{% if kind == 'followers' %}No followers yet{% else %}Not following anyone yet{% endif %}</h2></div>
+  {% endfor %}
+{% endblock %}

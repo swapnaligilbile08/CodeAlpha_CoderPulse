@@ -1,0 +1,55 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "partials/_head.html" %}
+  <title>{% if mode == 'login' %}Log in{% else %}Sign up{% endif %} · CoderPulse</title>
+</head>
+<body>
+{% include "partials/_icons.html" %}
+<main class="auth">
+  <div class="auth-top">{% include "partials/_theme_toggle.html" %}</div>
+  <div class="auth-box{% if mode == 'register' %} active{% endif %}" data-auth>
+
+    <section class="auth-form auth-login">
+      <form method="post" action="{% url 'login' %}" novalidate>
+        {% csrf_token %}
+        <h1>Login</h1>
+        {% if next %}<input type="hidden" name="next" value="{{ next }}">{% endif %}
+        {% if login_form.non_field_errors %}<div class="alert error" role="alert">{{ login_form.non_field_errors|join:" " }}</div>{% endif %}
+        {% for field in login_form %}{% include "partials/_auth_field.html" %}{% endfor %}
+        <button class="btn btn-block" type="submit">Login</button>
+        {% include "partials/_auth_social.html" with text="or login with social platforms" %}
+      </form>
+    </section>
+
+    <section class="auth-form auth-register">
+      <form method="post" action="{% url 'register' %}" novalidate>
+        {% csrf_token %}
+        <h1>Registration</h1>
+        {% if register_form.non_field_errors %}<div class="alert error" role="alert">{{ register_form.non_field_errors|join:" " }}</div>{% endif %}
+        {% for field in register_form %}{% include "partials/_auth_field.html" %}{% endfor %}
+        <button class="btn btn-block" type="submit">Register</button>
+        {% include "partials/_auth_social.html" with text="or register with social platforms" %}
+      </form>
+    </section>
+
+    <div class="auth-toggle">
+      <div class="auth-panel auth-panel-left">
+        <div class="auth-brand">{% include "partials/_logo.html" %}<span>CoderPulse</span></div>
+        <h2>Hello, Welcome!</h2>
+        <p>Don't have an account?</p>
+        <a class="auth-switch" href="{% url 'register' %}" data-auth-switch="register">Register</a>
+      </div>
+      <div class="auth-panel auth-panel-right">
+        <div class="auth-brand">{% include "partials/_logo.html" %}<span>CoderPulse</span></div>
+        <h2>Welcome Back!</h2>
+        <p>Already have an account?</p>
+        <a class="auth-switch" href="{% url 'login' %}{% if next %}?next={{ next|urlencode }}{% endif %}" data-auth-switch="login">Login</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+<script src="{% static 'js/app.js' %}" defer></script>
+</body>
+</html>

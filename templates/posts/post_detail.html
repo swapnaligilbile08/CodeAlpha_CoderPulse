@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} · CoderPulse{% endblock %}
+{% block content %}
+  <a class="back" href="{% url 'home' %}"><svg class="ic"><use href="#i-back"/></svg> Home</a>
+  {% include "partials/_post_card.html" with full=True %}
+  <section class="card" id="comments">
+    <h2 class="section-title">Comments {{ post.comment_count }}</h2>
+    <ul class="comments">
+      {% for c in comments %}
+      <li class="comment">
+        <a href="{% url 'profile' c.author.username %}">{% include "partials/_avatar.html" with u=c.author size="sm" %}</a>
+        <div class="bubble"><b><a href="{% url 'profile' c.author.username %}">{{ c.author.username }}</a></b><time>{{ c.created_at|timesince }} ago</time><p>{{ c.body }}</p></div>
+      </li>
+      {% empty %}
+      <li class="no-comments">No comments yet. Start the conversation.</li>
+      {% endfor %}
+    </ul>
+    <form class="comment-form" method="post" action="{% url 'comment_add' post.pk %}">
+      {% csrf_token %}
+      <input type="text" name="body" maxlength="500" placeholder="Add a comment" aria-label="Add a comment" autocomplete="off" required>
+      <button class="btn" type="submit">Post</button>
+    </form>
+  </section>
+{% endblock %}

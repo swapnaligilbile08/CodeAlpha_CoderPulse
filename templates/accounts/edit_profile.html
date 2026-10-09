@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Edit profile · CoderPulse{% endblock %}
+{% block content %}
+  <a class="back" href="{% url 'profile' request.user.username %}"><svg class="ic"><use href="#i-back"/></svg> Profile</a>
+  <h1 class="page-title">Edit profile</h1>
+  <form class="card" method="post" enctype="multipart/form-data" novalidate>
+    {% csrf_token %}
+    <div class="edit-head">{% include "partials/_avatar.html" with u=request.user size="lg" %}<span class="helptext">Everything here is optional. You can change it any time.</span></div>
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% if field.errors %}<ul class="errorlist" role="alert">{% for e in field.errors %}<li>{{ e }}</li>{% endfor %}</ul>{% endif %}
+    {% endfor %}
+    <button class="btn btn-block btn-submit" type="submit">Save changes</button>
+  </form>
+{% endblock %}

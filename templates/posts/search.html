@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Search · CoderPulse{% endblock %}
+{% block content %}
+  <h1 class="page-title">Search</h1>
+  <form class="searchbar" method="get" action="{% url 'search' %}" role="search">
+    <input type="search" name="q" value="{{ q }}" placeholder="Search posts or people" aria-label="Search">
+    {% if cat %}<input type="hidden" name="cat" value="{{ cat }}">{% endif %}
+    <button class="btn" type="submit">Search</button>
+  </form>
+
+  <div class="cat-row">
+    {% for key, label in categories %}
+    <a class="badge cat-{{ key }} {% if key == cat %}active{% endif %}" href="?{% if key != cat %}cat={{ key }}{% endif %}{% if q %}{% if key != cat %}&{% endif %}q={{ q|urlencode }}{% endif %}">{{ label }}</a>
+    {% endfor %}
+  </div>
+
+  {% for post in posts %}
+    {% include "partials/_post_card.html" %}
+  {% empty %}
+    <div class="card empty"><h2>No matches</h2><p>Try a different word or clear the category.</p></div>
+  {% endfor %}
+{% endblock %}

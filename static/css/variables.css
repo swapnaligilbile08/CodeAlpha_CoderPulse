@@ -1,0 +1,127 @@
+/* Theme colors. app.css only uses these variables. */
+:root {
+  --font: ui-rounded, "SF Pro Rounded", "Nunito", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+
+  /* Page background */
+  --bg-base: #efe9ff;
+  --marble-pink: #f6d3f3;
+  --marble-sky: #d3d9ff;
+  --marble-lilac: #c9b4ff;
+  --bg-marble:
+    radial-gradient(circle at 12% 8%, var(--marble-pink) 0%, transparent 50%),
+    radial-gradient(circle at 88% 18%, var(--marble-sky) 0%, transparent 50%),
+    radial-gradient(circle at 50% 95%, var(--marble-lilac) 0%, transparent 60%);
+
+  /* Frosted glass */
+  --glass-bg: rgba(255, 255, 255, .64);
+  --glass-bg-solid: rgba(255, 255, 255, .92);
+  --glass-border: rgba(255, 255, 255, .85);
+  --glass-blur: blur(16px);
+  --field-bg: rgba(255, 255, 255, .8);
+  --field-border: rgba(124, 92, 240, .28);
+
+  /* Text */
+  --text-primary: #2a1d5e;
+  --text-secondary: #5d4f93;
+
+  /* Accents */
+  --accent-primary: #7c5cf0;
+  --accent-secondary: #e0489a;
+  --accent-a: #a78bfa;
+  --accent-b: #f3a6e3;
+  --accent-gradient: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+  --logo-a: #8b6cf6;
+  --logo-b: #f3a6e3;
+  --primary-text: #5a3cd0;
+  --on-accent: #1d1147;
+  --accent-soft: rgba(124, 92, 240, .14);
+
+  /* Status */
+  --danger-text: #b0294f;
+  --danger-bg: rgba(226, 85, 127, .14);
+
+  /* Tab bar and profile banner */
+  --tabbar-gradient: linear-gradient(135deg, #7452e8, #8f6df3);
+  --tabbar-icon: rgba(255, 255, 255, .9);
+  --tabbar-icon-active: #ffffff;
+  --tabbar-pill: rgba(255, 255, 255, .24);
+  --tabbar-plus-bg: #ffffff;
+  --tabbar-plus-icon: #7c5cf0;
+  --profile-banner-gradient: linear-gradient(120deg, #8fa8ff, #c08bff 55%, #f3a6e3);
+
+  /* Images */
+  --auth-surface: #ffffff;
+  --media-bg: #1a1233;
+  --on-media: #ffffff;
+
+  /* Shadows */
+  --shadow-color: rgba(124, 92, 240, .28);
+  --shadow: 0 10px 30px var(--shadow-color);
+  --shadow-sm: 0 4px 14px rgba(124, 92, 240, .18);
+
+  /* Avatars */
+  --avatar-border: #ffffff;
+  --avatar-ring: var(--accent-primary);
+
+  /* Radius */
+  --radius-card: 24px;
+  --radius-image: 18px;
+  --radius-pill: 999px;
+  --radius-tabbar: 26px;
+
+  /* Category badges */
+  --cat-text-pct: 40%;
+  --cat-text-mix: #2a1d5e;
+  --cat-tutorial: #2fa87f;
+  --cat-tool: #5b7cf5;
+  --cat-project: #e08a3c;
+  --cat-discussion: #9a5cf0;
+}
+
+[data-theme="dark"] {
+  --auth-surface: #231a4f;
+  --bg-base: #120d2b;
+  --marble-pink: #4b1f66;
+  --marble-sky: #1f2f73;
+  --marble-lilac: #3b2280;
+
+  --glass-bg: rgba(38, 28, 84, .62);
+  --glass-bg-solid: rgba(38, 28, 84, .94);
+  --glass-border: rgba(255, 255, 255, .12);
+  --field-bg: rgba(18, 13, 43, .55);
+  --field-border: rgba(178, 155, 255, .35);
+
+  --text-primary: #efeaff;
+  --text-secondary: #b3a8e3;
+
+  --accent-primary: #b29bff;
+  --accent-secondary: #f79ad0;
+  --accent-a: #b29bff;
+  --accent-b: #f5a8e4;
+  --logo-a: #8b6cf6;
+  --logo-b: #d98ad0;
+  --primary-text: #b9a5ff;
+  --on-accent: #140f2e;
+  --accent-soft: rgba(178, 155, 255, .18);
+
+  --danger-text: #ff8fb0;
+  --danger-bg: rgba(255, 143, 176, .16);
+
+  --tabbar-gradient: linear-gradient(135deg, #4a3a9c, #6a55c8);
+  --tabbar-plus-bg: #efeaff;
+  --tabbar-plus-icon: #4a3a9c;
+  --profile-banner-gradient: linear-gradient(120deg, #2f4f9a, #7a3f9f 55%, #b03f8f);
+
+  --shadow-color: rgba(0, 0, 0, .45);
+  --shadow: 0 10px 30px var(--shadow-color);
+  --shadow-sm: 0 4px 14px rgba(0, 0, 0, .35);
+
+  --avatar-border: #261c54;
+
+  --cat-text-pct: 65%;
+  --cat-text-mix: #ffffff;
+  --cat-tutorial: #5fd3a6;
+  --cat-tool: #86a2ff;
+  --cat-project: #f2b56b;
+  --cat-discussion: #c9a8ff;
+}

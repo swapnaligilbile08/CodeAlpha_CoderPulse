@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Settings · CoderPulse{% endblock %}
+{% block content %}
+  <a class="back" href="{% url 'profile' request.user.username %}"><svg class="ic"><use href="#i-back"/></svg> Profile</a>
+  <h1 class="page-title">Settings</h1>
+  <div class="card menu-list">
+    <div class="menu-item static">
+      <svg class="ic"><use href="#i-moon"/></svg><span class="grow">Dark mode</span>
+      {% include "partials/_theme_toggle.html" %}
+    </div>
+    <a class="menu-item" href="{% url 'edit_profile' %}"><svg class="ic"><use href="#i-edit"/></svg><span class="grow">Edit profile</span><svg class="ic"><use href="#i-chevron"/></svg></a>
+    <a class="menu-item" href="{% url 'followers' request.user.username %}"><svg class="ic"><use href="#i-users"/></svg><span class="grow">Followers</span><svg class="ic"><use href="#i-chevron"/></svg></a>
+    <a class="menu-item" href="{% url 'following' request.user.username %}"><svg class="ic"><use href="#i-users"/></svg><span class="grow">Following</span><svg class="ic"><use href="#i-chevron"/></svg></a>
+    <form method="post" action="{% url 'logout' %}">{% csrf_token %}
+      <button type="submit" class="menu-item danger"><svg class="ic"><use href="#i-logout"/></svg><span class="grow">Log out</span></button>
+    </form>
+  </div>
+{% endblock %}

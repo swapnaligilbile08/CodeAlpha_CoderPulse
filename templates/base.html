@@ -1,0 +1,48 @@
+{% load static %}<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include "partials/_head.html" %}
+  <title>{% block title %}CoderPulse{% endblock %}</title>
+</head>
+<body>
+{% include "partials/_icons.html" %}
+{% with page=request.resolver_match.url_name %}
+<div class="shell{% block shell_class %}{% endblock %}">
+  <nav class="tabbar" aria-label="Main">
+    <a href="{% url 'home' %}" class="brand side-only">{% include "partials/_logo.html" %}<span class="label">CoderPulse</span></a>
+    <a href="{% url 'home' %}" class="tab {% if page == 'home' %}active{% endif %}" aria-label="Home" title="Home"><svg class="ic"><use href="#i-home"/></svg><span class="label">Home</span></a>
+    <a href="{% url 'search' %}" class="tab {% if page == 'search' %}active{% endif %}" aria-label="Search" title="Search"><svg class="ic"><use href="#i-search"/></svg><span class="label">Search</span></a>
+    <a href="{% url 'new_post' %}" class="tab tab-plus {% if page == 'new_post' %}active{% endif %}" aria-label="New post" title="Create"><svg class="ic"><use href="#i-plus"/></svg><span class="label">Create</span></a>
+    <a href="{% url 'following_feed' %}" class="tab {% if page == 'following_feed' or page == 'followers_feed' %}active{% endif %}" aria-label="Following feed" title="Following"><svg class="ic"><use href="#i-users"/></svg><span class="label">Following</span></a>
+    <a href="{% url 'notifications' %}" class="tab tab-bell side-only{% if unread_count %} has-new{% endif %} {% if page == 'notifications' %}active{% endif %}" aria-label="Notifications{% if unread_count %}, {{ unread_count }} unread{% endif %}" title="Notifications">
+      <svg class="ic"><use href="#i-bell"/></svg><span class="label">Notifications</span>
+      {% if unread_count %}<span class="bell-count">{% if unread_count > 9 %}9+{% else %}{{ unread_count }}{% endif %}</span>{% endif %}
+    </a>
+    <a href="{% url 'profile' request.user.username %}" class="tab {% if page == 'profile' and request.resolver_match.kwargs.username == request.user.username %}active{% elif page == 'followers' and request.resolver_match.kwargs.username == request.user.username %}active{% elif page == 'following' and request.resolver_match.kwargs.username == request.user.username %}active{% endif %}" aria-label="Profile" title="Profile"><svg class="ic"><use href="#i-user"/></svg><span class="label">Profile</span></a>
+    <a href="{% url 'settings' %}" class="tab side-only {% if page == 'settings' %}active{% endif %}" aria-label="Settings" title="Settings"><svg class="ic"><use href="#i-menu"/></svg><span class="label">Settings</span></a>
+    <div class="side-bottom side-only">
+      {% include "partials/_theme_toggle.html" %}
+    </div>
+  </nav>
+
+  <div class="app">
+    <header class="topbar glass">
+      <a href="{% url 'home' %}" class="brand">{% include "partials/_logo.html" %}<span>CoderPulse</span></a>
+      <div class="topbar-actions">
+        <a href="{% url 'notifications' %}" class="icon-btn bell{% if unread_count %} has-new{% endif %}" aria-label="Notifications{% if unread_count %}, {{ unread_count }} unread{% endif %}">
+          <svg class="ic"><use href="#i-bell"/></svg>
+          {% if unread_count %}<span class="bell-count">{% if unread_count > 9 %}9+{% else %}{{ unread_count }}{% endif %}</span>{% endif %}
+        </a>
+        {% include "partials/_theme_toggle.html" %}
+      </div>
+    </header>
+    {% for m in messages %}<div class="alert {{ m.tags }}" role="status">{{ m }}</div>{% endfor %}
+    <main>{% block content %}{% endblock %}</main>
+  </div>
+
+  <aside class="rail">{% block rail %}{% endblock %}</aside>
+</div>
+{% endwith %}
+<script src="{% static 'js/app.js' %}" defer></script>
+</body>
+</html>

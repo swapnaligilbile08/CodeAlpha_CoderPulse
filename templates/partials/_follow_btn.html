@@ -1,0 +1,1 @@
+<button type="button" class="btn btn-sm follow-btn {% if following %}is-on{% endif %}" data-follow data-url="{% url 'follow_toggle' u.username %}" aria-pressed="{% if following %}true{% else %}false{% endif %}">{% if following %}Following{% else %}Follow{% endif %}</button>

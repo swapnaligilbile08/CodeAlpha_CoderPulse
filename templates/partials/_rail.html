@@ -1,0 +1,18 @@
+<div class="card rail-card">
+  <div class="rail-me">
+    <a href="{% url 'profile' request.user.username %}">{% include "partials/_avatar.html" with u=request.user size="" %}</a>
+    <div class="who"><a href="{% url 'profile' request.user.username %}">{{ request.user.username }}</a>{% if request.user.display_name %}<span>{{ request.user.display_name }}</span>{% endif %}</div>
+    <a class="rail-link" href="{% url 'profile' request.user.username %}">View</a>
+  </div>
+  <div class="rail-head">Suggestions for you</div>
+  {% for u in suggestions %}
+  <div class="rail-row">
+    <a href="{% url 'profile' u.username %}">{% include "partials/_avatar.html" with u=u size="" %}</a>
+    <div class="who"><a href="{% url 'profile' u.username %}">{{ u.username }}</a><span>{% if u.follows_me %}Follows you{% else %}Suggested for you{% endif %}</span></div>
+    {% include "partials/_follow_btn.html" with u=u following=False %}
+  </div>
+  {% empty %}
+  <p class="rail-empty">You follow everyone for now.</p>
+  {% endfor %}
+  <p class="rail-foot">&copy; {% now "Y" %} CoderPulse</p>
+</div>
