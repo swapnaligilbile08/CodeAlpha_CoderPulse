@@ -2,6 +2,9 @@
 
 Safe to run on every deploy: it only creates what is missing, so nothing is duplicated.
 Render's free plan wipes the SQLite database on each deploy, so build.sh runs this every time.
+
+The demo password is read from the DJANGO_SEED_PASSWORD environment variable.
+If it is not set, the seed is skipped.
 """
 import os
 from datetime import timedelta
@@ -15,7 +18,7 @@ from accounts.models import Follow
 
 User = get_user_model()
 
-DEMO_PASSWORD = os.environ.get('DJANGO_SEED_PASSWORD', 'Demo@12345')
+DEMO_PASSWORD = os.environ.get('DJANGO_SEED_PASSWORD')
 
 USERS = [
     ('aarav', 'Aarav', 'Mehta', 'Backend dev. Django, APIs and clean database design.'),
@@ -91,6 +94,10 @@ class Command(BaseCommand):
     help = 'Create 6 demo users with 6 posts each (idempotent).'
 
     def handle(self, *args, **options):
+        if not DEMO_PASSWORD:
+            self.stdout.write('DJANGO_SEED_PASSWORD is not set, skipping seed.')
+            return
+
         now = timezone.now()
         users = {}
 
@@ -137,5 +144,4 @@ class Command(BaseCommand):
                                            body=COMMENTS[p_index % len(COMMENTS)])
 
         self.stdout.write(self.style.SUCCESS(
-            f'Seed done: {len(users)} users, {n_posts} new posts. '
-            f'Demo password: {DEMO_PASSWORD}'))
+            f'Seed done: {len(users)} users, {n_posts} new posts.'))
